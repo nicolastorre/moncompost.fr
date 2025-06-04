@@ -22,6 +22,8 @@ jobs:
           echo -e "Host *\n  StrictHostKeyChecking no\n  UserKnownHostsFile=/dev/null\n" > ~/.ssh/config
 
       - name: Run Ansible Playbook
+        env:
+          ANSIBLE_CONFIG: ./ansible.cfg
         run: |
           ansible-playbook scripts/deploy/playbook.yml \
             --tags common \
