@@ -19,7 +19,7 @@ jobs:
       - name: Run Ansible Playbook
         run: |
           ansible-playbook scripts/deploy/playbook.yml \
-            -- tags common \
+            --tags common \
             -i "${{ secrets.VPS_HOST }}," \
             -u ${{ secrets.ANSIBLE_USER }} \
             --extra-vars "
