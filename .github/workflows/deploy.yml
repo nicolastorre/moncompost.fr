@@ -1,0 +1,32 @@
+name: Deploy to VPS
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout deployment repository
+        uses: actions/checkout@v3
+
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.ANSIBLE_DEPLOY_KEY }}
+
+      - name: Run Ansible Playbook
+        run: |
+          ansible-playbook scripts/deploy/playbook.yml \
+            -- tags common \
+            -i "${{ secrets.VPS_HOST }}," \
+            -u ${{ secrets.ANSIBLE_USER }} \
+            --extra-vars "
+              ansible_port=${{ secrets.SSH_PORT }}
+              ssh_port=${{ secrets.SSH_PORT }}
+              app_user=${{ secrets.APP_USER }}
+              app_user_ssh_public_key='${{ secrets.APP_USER_SSH_PUBLIC_KEY }}'
+              domain=${{ secrets.DOMAIN_NAME }}
+              ssl_email=${{ secrets.SSL_EMAIL }}
+              git_url=${{ secrets.GIT_URL }}"

@@ -1,0 +1,19 @@
+- name: Create deployment directory
+  file:
+    path: /var/www/myapp
+    state: directory
+
+- name: Copy docker-compose.yml
+  copy:
+    src: files/docker-compose.yml
+    dest: /var/www/myapp/docker-compose.yml
+
+- name: Copy .env file
+  copy:
+    src: files/env.prod
+    dest: /var/www/myapp/.env
+
+- name: Start docker-compose
+  command: docker-compose up -d
+  args:
+    chdir: /var/www/myapp

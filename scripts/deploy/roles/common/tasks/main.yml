@@ -1,0 +1,72 @@
+- name: Update and upgrade apt
+  apt:
+    upgrade: yes
+    update_cache: yes
+  tags: common
+
+- name: Change SSH port to {{ ssh_port }}
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: "^#?Port"
+    line: "Port {{ ssh_port }}"
+    backup: yes
+    state: present
+  tags: common
+
+- name: Create '{{ app_user }}' user
+  user:
+    name: "{{ app_user }}"
+    shell: /bin/bash
+    groups: sudo,docker
+    append: yes
+    create_home: yes
+  tags: common
+
+- name: Create .ssh directory for {{ app_user }}
+  file:
+    path: "/home/{{ app_user }}/.ssh"
+    state: directory
+    owner: "{{ app_user }}"
+    group: "{{ app_user }}"
+    mode: "0700"
+  tags: common
+
+- name: Add authorized SSH key for {{ app_user }}
+  copy:
+    content: "{{ app_user_ssh_public_key }}"
+    dest: "/home/{{ app_user }}/.ssh/authorized_keys"
+    owner: "{{ app_user }}"
+    group: "{{ app_user }}"
+    mode: "0600"
+  tags: common
+
+- name: Allow passwordless sudo for {{ app_user }}
+  copy:
+    dest: "/etc/sudoers.d/{{ app_user }}"
+    content: "{{ app_user }} ALL=(ALL) NOPASSWD:ALL\n"
+    mode: "0440"
+  tags: common
+
+- name: Disable root SSH login
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: "^PermitRootLogin"
+    line: "PermitRootLogin no"
+    state: present
+    backup: yes
+  tags: common
+
+- name: Disable SSH password authentication
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: "^PasswordAuthentication"
+    line: "PasswordAuthentication no"
+    state: present
+    backup: yes
+  tags: common
+
+- name: Restart SSH service
+  service:
+    name: ssh
+    state: restarted
+  tags: common
