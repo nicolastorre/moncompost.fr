@@ -1,2 +1,0 @@
-- name: Install Yarn
-  shell: npm install -g yarn
