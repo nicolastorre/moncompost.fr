@@ -16,11 +16,6 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.ANSIBLE_ROOT_USER_KEY }}
 
-      - name: Disable strict host key checking
-        run: |
-          mkdir -p ~/.ssh
-          echo -e "Host *\n  StrictHostKeyChecking no\n  UserKnownHostsFile=/dev/null\n" > ~/.ssh/config
-
       - name: Run Ansible Playbook init
         env:
           ANSIBLE_CONFIG: ./scripts/setup/ansible.cfg
