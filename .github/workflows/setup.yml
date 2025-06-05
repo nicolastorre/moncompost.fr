@@ -42,12 +42,20 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.ANSIBLE_APP_USER_KEY }}
 
+      - name: Run ansible ping
+        run: ansible all \
+          -i "${{ secrets.VPS_HOST }}," \
+          -u ${{ secrets.APP_USER }} \
+          -m ping \
+          -vvvv \
+          --extra-vars "
+          ansible_port=${{ secrets.SSH_PORT }}"
+
       - name: Run Ansible Playbook setup
         run: |
           ansible-playbook scripts/setup/playbook-setup.yml \
             -i "${{ secrets.VPS_HOST }}," \
             -u ${{ secrets.APP_USER }} \
-            -m ping \
             --extra-vars "
               ansible_port=${{ secrets.SSH_PORT }}
               ssh_port=${{ secrets.SSH_PORT }}
