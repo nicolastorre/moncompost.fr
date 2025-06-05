@@ -22,6 +22,7 @@ jobs:
           echo -e "Host *\n  StrictHostKeyChecking no\n  UserKnownHostsFile=/dev/null\n" > ~/.ssh/config
 
       - name: Run Ansible Playbook init
+        continue-on-error: true
         env:
           ANSIBLE_CONFIG: ./scripts/setup/ansible.cfg
         run: |
