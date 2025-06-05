@@ -17,7 +17,7 @@
   user:
     name: "{{ app_user }}"
     shell: /bin/bash
-    groups: sudo,docker
+    groups: sudo
     append: yes
     create_home: yes
   tags: common
