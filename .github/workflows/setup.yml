@@ -47,6 +47,7 @@ jobs:
           ansible-playbook scripts/setup/playbook-setup.yml \
             -i "${{ secrets.VPS_HOST }}," \
             -u ${{ secrets.APP_USER }} \
+            -m ping \
             --extra-vars "
               ansible_port=${{ secrets.SSH_PORT }}
               ssh_port=${{ secrets.SSH_PORT }}
