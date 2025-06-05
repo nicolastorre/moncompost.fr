@@ -45,7 +45,7 @@ jobs:
         env:
           ANSIBLE_CONFIG: ./scripts/setup/ansible.cfg
         run: |
-          ansible-playbook scripts/deploy/playbook-setup.yml \
+          ansible-playbook scripts/setup/playbook-setup.yml \
             -i "${{ secrets.VPS_HOST }}," \
             -u ${{ secrets.APP_USER }} \
             --extra-vars "
