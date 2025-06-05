@@ -11,3 +11,9 @@
     name: docker
     enabled: yes
     state: started
+
+- name: Add {{ app_user }} to docker group
+  user:
+    name: "{{ app_user }}"
+    groups: docker
+    append: yes
