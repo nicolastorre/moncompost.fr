@@ -42,8 +42,6 @@ jobs:
           ssh-private-key: ${{ secrets.ANSIBLE_APP_USER_KEY }}
 
       - name: Run Ansible Playbook setup
-        env:
-          ANSIBLE_CONFIG: ./scripts/setup/ansible.cfg
         run: |
           ansible-playbook scripts/setup/playbook-setup.yml \
             -i "${{ secrets.VPS_HOST }}," \
