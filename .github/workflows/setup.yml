@@ -14,7 +14,7 @@ jobs:
       - name: Set up SSH
         uses: webfactory/ssh-agent@v0.7.0
         with:
-          ssh-private-key: ${{ secrets.ANSIBLE_DEPLOY_KEY }}
+          ssh-private-key: ${{ secrets.ANSIBLE_ROOT_USER_KEY }}
 
       - name: Disable strict host key checking
         run: |
@@ -33,6 +33,14 @@ jobs:
               ssh_port=${{ secrets.SSH_PORT }}
               app_user=${{ secrets.APP_USER }}
               app_user_ssh_public_key='${{ secrets.APP_USER_SSH_PUBLIC_KEY }}'"
+
+      - name: Remove SSH key for root
+        run: ssh-add -D
+
+      - name: Set up SSH for puget
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.ANSIBLE_APP_USER_KEY }}
 
       - name: Run Ansible Playbook setup
         env:
