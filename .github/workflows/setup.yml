@@ -25,7 +25,7 @@ jobs:
         env:
           ANSIBLE_CONFIG: ./script/setup/ansible.cfg
         run: |
-          ansible-playbook scripts/deploy/playbook-init.yml \
+          ansible-playbook scripts/setup/playbook-init.yml \
             --tags common \
             -i "${{ secrets.VPS_HOST }}," \
             -u ${{ secrets.ROOT_USER }} \
