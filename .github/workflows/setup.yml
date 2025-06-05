@@ -23,7 +23,7 @@ jobs:
 
       - name: Run Ansible Playbook init
         env:
-          ANSIBLE_CONFIG: ./script/setup/ansible.cfg
+          ANSIBLE_CONFIG: ./scripts/setup/ansible.cfg
         run: |
           ansible-playbook scripts/setup/playbook-init.yml \
             -i "${{ secrets.VPS_HOST }}," \
@@ -43,7 +43,7 @@ jobs:
 
       - name: Run Ansible Playbook setup
         env:
-          ANSIBLE_CONFIG: ./script/setup/ansible.cfg
+          ANSIBLE_CONFIG: ./scripts/setup/ansible.cfg
         run: |
           ansible-playbook scripts/deploy/playbook-setup.yml \
             -i "${{ secrets.VPS_HOST }}," \
