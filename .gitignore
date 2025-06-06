@@ -1,1 +1,73 @@
+# Node modules
+node_modules/
+**/node_modules/
+
+# Build outputs
+dist/
+build/
+**/dist/
+**/build/
+
+# TypeScript build info
+*.tsbuildinfo
+**/*.tsbuildinfo
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime files
+.pnpm-debug.log*
+*.pid
+*.pid.lock
+*.seed
+
+# Environment variables
 .env
+.env.*
+!.env.example
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Editor folders
+.vscode/
+.idea/
+*.swp
+
+# Yarn Berry
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.yarnrc.yml
+
+# React-specific
+**/coverage/
+**/.parcel-cache/
+**/.next/
+**/.turbo/
+**/out/
+**/.cache/
+*.snap
+
+# Frontend build artifacts (React)
+**/public/build/
+**/public/dist/
+**/static/
+
+# Testing
+coverage/
+*.lcov
+.jest/
+cypress/screenshots/
+cypress/videos/
+
+# Misc
+npm-packages-offline-cache/

@@ -1,0 +1,18 @@
+{
+  "name": "moncompost.fr",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:nicolastorre/moncompost.fr.git",
+  "author": "Nicolas Torre <10921378+nicolastorre@users.noreply.github.com>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:backend": "yarn workspace backend dev"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
+}
