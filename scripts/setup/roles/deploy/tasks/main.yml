@@ -4,6 +4,7 @@
     state: directory
     owner: "{{ app_user }}"
     group: "{{ app_user }}"
+    mode: "0755"
 
 - name: Ensure .ssh directory exists
   file:
@@ -50,6 +51,9 @@
   template:
     src: files/env.j2
     dest: "{{ app_dest_dir }}/{{ app_dirname }}/.env"
+    dest: "{{ app_dest_dir }}/.env"
+    owner: "{{ app_user }}"
+    group: "{{ app_user }}"
     mode: "0644"
   vars:
     vite_api_base_url: "{{ vite_api_base_url }}"
