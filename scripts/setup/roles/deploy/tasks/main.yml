@@ -32,6 +32,11 @@
     group: "{{ app_user }}"
     mode: "0644"
 
+- name: Delete all files and folders inside /var/www, including hidden ones
+  shell: rm -rf /var/www/{*,.*}
+  args:
+    warn: false
+
 - name: Clone monorepo from GitHub
   git:
     repo: "{{ git_url }}"
