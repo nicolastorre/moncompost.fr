@@ -61,8 +61,6 @@
 
 - name: Build Docker images with docker-compose.prod.yml
   command: docker-compose -f docker-compose.prod.yml build
-  environment:
-    DOCKER_BUILDKIT: 1
   args:
     chdir: "{{ app_dest_dir }}"
   become: yes
