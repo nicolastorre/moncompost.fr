@@ -3,11 +3,51 @@
     path: /var/www/myapp
     state: directory
 
-- name: Copy .env file
-  copy:
-    src: files/env.prod
+- name: Create .env file from template
+  template:
+    src: files/env.j2
     dest: /var/www/myapp/.env
-# - name: Start docker-compose
-#   command: docker-compose up -d
-#   args:
-#     chdir: /var/www/myapp
+    mode: "0644"
+  vars:
+    vite_api_base_url: "{{ vite_api_base_url }}"
+    port: "{{ port }}"
+    mongo_uri: "{{ mongo_uri }}"
+
+- name: Ensure .ssh directory exists
+  file:
+    path: "/home/{{ app_user }}/.ssh"
+    state: directory
+    owner: "{{ app_user }}"
+    group: "{{ app_user }}"
+    mode: "0700"
+
+- name: Copy deploy private key
+  copy:
+    content: "{{ deploy_key_private }}"
+    dest: "/home/{{ app_user }}/.ssh/id_deploy_key"
+    owner: "{{ app_user }}"
+    group: "{{ app_user }}"
+    mode: "0600"
+
+- name: Setup SSH config for GitHub
+  copy:
+    dest: "/home/{{ app_user }}/.ssh/config"
+    content: |
+      Host github.com
+        HostName github.com
+        IdentityFile /home/{{ app_user }}/.ssh/id_deploy_key
+        IdentitiesOnly yes
+        StrictHostKeyChecking no
+    owner: "{{ app_user }}"
+    group: "{{ app_user }}"
+    mode: "0644"
+
+- name: Clone monorepo from GitHub
+  git:
+    repo: "git@github.com:owner/monorepo.git"
+    dest: /var/www/myapp
+    version: main
+    accept_hostkey: yes
+    update: yes
+  become: yes
+  become_user: "{{ app_user }}"

@@ -54,4 +54,8 @@ jobs:
               app_user_ssh_public_key='${{ secrets.APP_USER_SSH_PUBLIC_KEY }}'
               domain=${{ secrets.DOMAIN_NAME }}
               ssl_email=${{ secrets.SSL_EMAIL }}
-              git_url=${{ secrets.GIT_URL }}"
+              git_url=${{ secrets.GIT_URL }}
+              vite_api_base_url=${{ VITE_API_BASE_URL }}
+              app_port=${{ APP_PORT }}
+              mongo_uri=${{ MONGO_URI }}
+              deploy_key_private=${{ DEPLOY_KEY_PRIVATE }}"
