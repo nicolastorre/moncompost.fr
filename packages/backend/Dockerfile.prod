@@ -3,6 +3,9 @@ FROM node:23
 WORKDIR /app
 
 COPY package.json yarn.lock ./
+COPY packages/backend/package.json ./packages/backend/
+
+RUN yarn cache clean
 
 RUN yarn install --frozen-lockfile
 
