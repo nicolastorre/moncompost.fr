@@ -2,7 +2,7 @@
   become: yes
   vars:
     app_dest_dir: "/home/{{ app_user }}/app"
-    nginx_server_root: "{{ app_dest_dir }}/build"
+    nginx_server_root: "{{ app_dest_dir }}/packages/frontend/dist"
   roles:
     - docker
     - firewall
