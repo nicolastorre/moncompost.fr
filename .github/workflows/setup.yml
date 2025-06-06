@@ -55,7 +55,7 @@ jobs:
               domain=${{ secrets.DOMAIN_NAME }}
               ssl_email=${{ secrets.SSL_EMAIL }}
               git_url=${{ secrets.GIT_URL }}
-              vite_api_base_url=${{ VITE_API_BASE_URL }}
-              app_port=${{ APP_PORT }}
-              mongo_uri=${{ MONGO_URI }}
-              deploy_key_private=${{ DEPLOY_KEY_PRIVATE }}"
+              vite_api_base_url=${{ secrets.VITE_API_BASE_URL }}
+              app_port=${{ secrets.APP_PORT }}
+              mongo_uri=${{ secrets.MONGO_URI }}
+              deploy_key_private=${{ secrets.DEPLOY_KEY_PRIVATE }}"
