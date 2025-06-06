@@ -23,7 +23,7 @@
 
 - name: Copy deploy private key
   copy:
-    content: "{{ deploy_key_private }}"
+    content: "{{ deploy_key_private_base64 | b64decode }}"
     dest: "/home/{{ app_user }}/.ssh/id_deploy_key"
     owner: "{{ app_user }}"
     group: "{{ app_user }}"
