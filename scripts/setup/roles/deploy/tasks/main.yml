@@ -33,7 +33,7 @@
     mode: "0644"
 
 - name: Delete all files and folders inside /var/www, including hidden ones
-  shell: rm -rf /var/www/{*,.*}
+  shell: rm -rf /var/www/*
 
 - name: Clone monorepo from GitHub
   git:
