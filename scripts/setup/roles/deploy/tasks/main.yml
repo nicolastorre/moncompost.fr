@@ -74,3 +74,15 @@
     chdir: "{{ app_dest_dir }}"
   become: yes
   become_user: "{{ app_user }}"
+
+- name: Build frontend using Docker and Yarn
+  command: >
+    docker run --rm
+    -v {{ app_dest_dir }}:/app
+    -w /app
+    node:23
+    /bin/bash -c "yarn install --frozen-lockfile && yarn workspace frontend build"
+  args:
+    chdir: "{{ app_dest_dir }}"
+  become: yes
+  become_user: "{{ app_user }}"
