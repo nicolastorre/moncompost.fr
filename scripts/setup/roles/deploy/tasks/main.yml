@@ -63,13 +63,13 @@
 - name: Build Docker images with docker-compose.prod.yml
   command: docker-compose -f docker-compose.prod.yml build
   args:
-    chdir: /var/www/myapp
+    chdir: "{{ app_dest_dir }}/{{ app_dirname }}"
   become: yes
   become_user: "{{ app_user }}"
 
 - name: Start Docker containers with docker-compose.prod.yml
   command: docker-compose -f docker-compose.prod.yml up -d
   args:
-    chdir: /var/www/myapp
+    chdir: "{{ app_dest_dir }}/{{ app_dirname }}"
   become: yes
   become_user: "{{ app_user }}"
