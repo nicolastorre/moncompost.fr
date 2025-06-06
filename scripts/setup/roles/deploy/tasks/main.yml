@@ -2,6 +2,8 @@
   file:
     path: "{{ app_dest_dir }}"
     state: directory
+    owner: "{{ app_user }}"
+    group: "{{ app_user }}"
 
 - name: Ensure .ssh directory exists
   file:
@@ -42,7 +44,6 @@
     version: main
     accept_hostkey: yes
     update: yes
-  become: yes
   become_user: "{{ app_user }}"
 
 - name: Create .env file from template
