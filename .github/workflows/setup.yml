@@ -58,4 +58,4 @@ jobs:
               vite_api_base_url=${{ secrets.VITE_API_BASE_URL }}
               app_port=${{ secrets.APP_PORT }}
               mongo_uri=${{ secrets.MONGO_URI }}
-              deploy_key_private_base64=${{ secrets.   }}"
+              deploy_key_private_base64=${{ secrets.DEPLOY_KEY_PRIVATE_BASE64 }}"
