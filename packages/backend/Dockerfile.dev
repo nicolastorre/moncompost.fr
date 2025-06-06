@@ -5,8 +5,12 @@ WORKDIR /app
 COPY package.json yarn.lock ./
 COPY packages/backend/package.json ./packages/backend/
 
-RUN yarn install --frozen-lockfile
+RUN yarn cache clean
+
+RUN yarn install
 
 COPY packages ./packages
 
-CMD ["yarn", "workspace", "backend", "run", "dev"]
+COPY .env ./
+
+CMD ["tail", "-f", "/dev/null"]

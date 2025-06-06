@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import StatisticScreen from "./screens/StatisticScreen";
 
-const App = () => <h1>Hello from React 19 + Vite</h1>;
+const App = () => <StatisticScreen />;
 
 ReactDOM.createRoot(document.getElementById("root")!).render(<App />);

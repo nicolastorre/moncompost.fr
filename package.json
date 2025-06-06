@@ -10,6 +10,7 @@
     "packages/*"
   ],
   "scripts": {
+    "dev:frontend": "yarn workspace frontend dev",
     "dev:backend": "yarn workspace backend dev"
   },
   "devDependencies": {
