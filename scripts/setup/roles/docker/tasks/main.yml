@@ -1,39 +1,25 @@
-- name: Install required packages
-  apt:
-    name:
-      - docker.io
-      - curl
-    state: present
-    update_cache: yes
+- name: Add Docker GPG apt Key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
 
-- name: Enable and start Docker
-  systemd:
+- name: Add Docker Repository
+  apt_repository:
+    repo: deb https://download.docker.com/linux/ubuntu jammy stable
+    state: present
+
+- name: Update apt and install docker-ce
+  apt:
+    name: docker-ce
+    state: latest
+    update_cache: true
+
+- name: Install Docker Module for Python
+  pip:
     name: docker
-    enabled: yes
-    state: started
 
 - name: Add {{ app_user }} to docker group
   user:
     name: "{{ app_user }}"
     groups: docker
     append: yes
-
-- name: Download Docker Compose V2 plugin
-  get_url:
-    url: https://github.com/docker/compose/releases/download/v2.27.0/docker-compose-linux-x86_64
-    dest: /usr/local/lib/docker/cli-plugins/docker-compose
-    mode: "0755"
-
-- name: Create Docker CLI plugins directory if not exists
-  file:
-    path: /usr/local/lib/docker/cli-plugins
-    state: directory
-    mode: "0755"
-
-- name: Ensure docker-compose is executable and in PATH
-  file:
-    path: /usr/local/lib/docker/cli-plugins/docker-compose
-    mode: "0755"
-    owner: root
-    group: root
-    state: file
