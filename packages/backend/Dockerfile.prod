@@ -1,24 +1,15 @@
-FROM node:23 AS builder
+FROM node:23
 
 WORKDIR /app
 
-COPY .env ./package.json yarn.lock ./
-COPY packages/backend/package.json ./packages/backend/
+COPY package.json yarn.lock ./
 
 RUN yarn install --frozen-lockfile
 
-COPY packages ./packages
+COPY . .
 
 RUN yarn workspace backend build
 
-FROM node:23-slim
-
-WORKDIR /app
-
-COPY --from=builder /app/packages/backend/dist ./dist
-COPY --from=builder /app/packages/backend/package.json ./
-COPY --from=builder /app/node_modules ./node_modules
-
 EXPOSE 3000
 
-CMD ["node", "dist/index.js"]
+CMD ["node", "packages/backend/dist/index.js"]
