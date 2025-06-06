@@ -1,8 +1,8 @@
-- name: Install Docker
+- name: Install required packages
   apt:
     name:
       - docker.io
-      - docker-compose
+      - curl
     state: present
     update_cache: yes
 
@@ -17,3 +17,23 @@
     name: "{{ app_user }}"
     groups: docker
     append: yes
+
+- name: Download Docker Compose V2 plugin
+  get_url:
+    url: https://github.com/docker/compose/releases/download/v2.27.0/docker-compose-linux-x86_64
+    dest: /usr/local/lib/docker/cli-plugins/docker-compose
+    mode: "0755"
+
+- name: Create Docker CLI plugins directory if not exists
+  file:
+    path: /usr/local/lib/docker/cli-plugins
+    state: directory
+    mode: "0755"
+
+- name: Ensure docker-compose is executable and in PATH
+  file:
+    path: /usr/local/lib/docker/cli-plugins/docker-compose
+    mode: "0755"
+    owner: root
+    group: root
+    state: file
