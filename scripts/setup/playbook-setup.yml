@@ -2,7 +2,7 @@
   become: yes
   vars:
     app_dest_dir: "/home/{{ app_user }}/app"
-    app_dirname: moncompost.fr
+    nginx_server_root: "{{ app_dest_dir }}/build"
   roles:
     - docker
     - firewall

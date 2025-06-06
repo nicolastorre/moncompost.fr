@@ -2,7 +2,7 @@ server {
     listen 80;
     server_name {{ domain }};
 
-    root {{ app_dest_dir }}/{{ app_dirname }}/build;
+    root {{ nginx_server_root }};
     index index.html;
 
     location / {
