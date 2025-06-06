@@ -1,17 +1,7 @@
 - name: Create deployment directory
   file:
-    path: /var/www/myapp
+    path: "{{ app_dest_dir }}"
     state: directory
-
-- name: Create .env file from template
-  template:
-    src: files/env.j2
-    dest: /var/www/myapp/.env
-    mode: "0644"
-  vars:
-    vite_api_base_url: "{{ vite_api_base_url }}"
-    port: "{{ port }}"
-    mongo_uri: "{{ mongo_uri }}"
 
 - name: Ensure .ssh directory exists
   file:
@@ -45,12 +35,22 @@
 - name: Clone monorepo from GitHub
   git:
     repo: "{{ git_url }}"
-    dest: /var/www/myapp
+    dest: "{{ app_dest_dir }}"
     version: main
     accept_hostkey: yes
     update: yes
   become: yes
   become_user: "{{ app_user }}"
+
+- name: Create .env file from template
+  template:
+    src: files/env.j2
+    dest: "{{ app_dest_dir }}/{{ app_dirname }}/.env"
+    mode: "0644"
+  vars:
+    vite_api_base_url: "{{ vite_api_base_url }}"
+    port: "{{ port }}"
+    mongo_uri: "{{ mongo_uri }}"
 
 - name: Build Docker images with docker-compose.prod.yml
   command: docker-compose -f docker-compose.prod.yml build
