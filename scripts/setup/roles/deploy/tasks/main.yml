@@ -49,7 +49,7 @@
 
 - name: Create .env file from template
   template:
-    src: files/env.j2
+    src: env.j2
     dest: "{{ app_dest_dir }}/{{ app_dirname }}/.env"
     dest: "{{ app_dest_dir }}/.env"
     owner: "{{ app_user }}"
