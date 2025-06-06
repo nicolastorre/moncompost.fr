@@ -44,7 +44,7 @@
 
 - name: Clone monorepo from GitHub
   git:
-    repo: "git@github.com:owner/monorepo.git"
+    repo: "{{ git_url }}"
     dest: /var/www/myapp
     version: main
     accept_hostkey: yes
