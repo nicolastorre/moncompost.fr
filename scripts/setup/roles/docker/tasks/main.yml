@@ -20,9 +20,9 @@
     dest: /etc/apt/keyrings/docker.asc
     mode: "0644"
 
-- name: Add Docker repository
-  apt_repository:
-    repo: "deb [arch={{ ansible_architecture }} signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu {{ ansible_lsb.codename }} stable"
+- name: Add Docker apt repository
+  ansible.builtin.apt_repository:
+    repo: "deb [arch={{ deb_architecture.stdout }} signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/{{ distribution | lower }} {{ distribution_release }} stable"
     state: present
     filename: docker
 
