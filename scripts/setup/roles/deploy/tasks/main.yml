@@ -90,3 +90,16 @@
     recurse: yes
     state: directory
   become: yes
+
+- name: Set permissions on dist files
+  find:
+    paths: "{{ nginx_server_root }}"
+    file_type: file
+  register: frontend_files
+
+- name: Apply 0644 permissions to dist files
+  file:
+    path: "{{ item.path }}"
+    mode: "0644"
+  loop: "{{ frontend_files.files }}"
+  become: yes
