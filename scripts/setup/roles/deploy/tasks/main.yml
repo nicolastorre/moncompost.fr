@@ -81,3 +81,13 @@
   args:
     chdir: "{{ app_dest_dir }}"
   become_user: "{{ app_user }}"
+
+- name: Set ownership of frontend dist files to puget
+  file:
+    path: /home/puget/app/packages/frontend/dist
+    owner: "{{ app_user }}"
+    group: "{{ app_user }}"
+    recurse: yes
+    state: directory
+  become: yes
+  become_user: "{{ app_user }}"
