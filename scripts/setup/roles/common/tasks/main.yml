@@ -62,8 +62,10 @@
     name: ssh
     state: restarted
 
-- name: Reboot the server and exit immediately
-  ansible.builtin.shell: reboot
+- name: Reboot the server and wait a moment
+  ansible.builtin.shell: |
+    reboot
+    sleep 10
   become: yes
   async: 1
   poll: 0
