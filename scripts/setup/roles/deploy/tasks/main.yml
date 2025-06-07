@@ -84,10 +84,9 @@
 
 - name: Set ownership of frontend dist files to puget
   file:
-    path: /home/puget/app/packages/frontend/dist
+    path: "{{ nginx_server_root }}"
     owner: "{{ app_user }}"
     group: "{{ app_user }}"
     recurse: yes
     state: directory
   become: yes
-  become_user: "{{ app_user }}"
