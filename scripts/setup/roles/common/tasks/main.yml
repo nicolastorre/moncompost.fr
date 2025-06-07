@@ -4,19 +4,6 @@
     update_cache: yes
   tags: common
 
-- name: Install required system packages
-apt:
-  pkg:
-    - apt-transport-https
-    - ca-certificates
-    - curl
-    - software-properties-common
-    - python3-pip
-    - virtualenv
-    - python3-setuptools
-  state: present
-  update_cache: true
-
 - name: Change SSH port to {{ ssh_port }}
   lineinfile:
     path: /etc/ssh/sshd_config
