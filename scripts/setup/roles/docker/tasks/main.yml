@@ -31,16 +31,3 @@
 - name: Install Docker packages
   shell: apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
   become: true
-
-- name: Ensure current user is in docker group
-  user:
-    name: "{{ ansible_user }}"
-    groups: docker
-    append: yes
-  become: true
-
-- name: Restart session to apply group change (reboot or re-login required)
-  reboot:
-    reboot_timeout: 300
-  when: docker_group_fix is defined and docker_group_fix | bool
-  become: true
