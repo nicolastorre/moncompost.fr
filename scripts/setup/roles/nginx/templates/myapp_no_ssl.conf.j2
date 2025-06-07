@@ -1,15 +1,6 @@
 server {
     listen 80;
     listen [::]:80;
-    server_name www.{{ domain }};
-
-    # Redirect www to non-www
-    return 301 http://{{ domain }}$request_uri;
-}
-
-server {
-    listen 80;
-    listen [::]:80;
     server_name {{ domain }};
 
     # Servir l'application React (en HTTP simple)
