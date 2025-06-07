@@ -20,12 +20,11 @@
     dest: /etc/apt/keyrings/docker.asc
     mode: "0644"
 
-- name: Add Docker APT repository
+- name: Add Docker repository
   apt_repository:
     repo: "deb [arch={{ ansible_architecture }} signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu {{ ansible_lsb.codename }} stable"
-    filename: docker
     state: present
-    update_cache: yes
+    filename: docker
 
 - name: Update apt cache
   apt:
