@@ -6,10 +6,12 @@ COPY package.json yarn.lock ./
 COPY packages/backend/package.json ./packages/backend/
 
 RUN yarn cache clean
-
 RUN yarn install --frozen-lockfile
 
-COPY . .
+COPY packages/backend ./packages/backend
+
+COPY packages/domain ./packages/domain
+COPY tsconfig.json ./
 
 RUN yarn workspace backend build
 
