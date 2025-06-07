@@ -60,14 +60,14 @@
     mongo_uri: "{{ mongo_uri }}"
 
 - name: Build Docker images with docker-compose.prod.yml
-  command: docker-compose -f docker-compose.prod.yml build
+  command: docker compose -f docker-compose.prod.yml build
   args:
     chdir: "{{ app_dest_dir }}"
   become: yes
   become_user: "{{ app_user }}"
 
 - name: Start Docker containers with docker-compose.prod.yml
-  command: docker-compose -f docker-compose.prod.yml up -d
+  command: docker compose -f docker-compose.prod.yml up -d
   args:
     chdir: "{{ app_dest_dir }}"
   become: yes
