@@ -3,15 +3,20 @@ FROM node:23
 WORKDIR /app
 
 COPY package.json yarn.lock ./
-COPY packages/backend/package.json ./packages/backend/
 
-RUN yarn cache clean
-RUN yarn install --frozen-lockfile
+COPY packages/backend/package.json ./packages/backend/
 
 COPY packages/backend ./packages/backend
 
 COPY packages/domain ./packages/domain
+
 COPY tsconfig.json ./
+
+COPY .env ./
+
+RUN yarn cache clean
+
+RUN yarn install --frozen-lockfile
 
 RUN yarn workspace backend build
 
