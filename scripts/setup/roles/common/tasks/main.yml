@@ -2,7 +2,6 @@
   apt:
     upgrade: yes
     update_cache: yes
-  tags: common
 
 - name: Change SSH port to {{ ssh_port }}
   lineinfile:
@@ -11,7 +10,6 @@
     line: "Port {{ ssh_port }}"
     backup: yes
     state: present
-  tags: common
 
 - name: Create '{{ app_user }}' user
   user:
@@ -20,7 +18,6 @@
     groups: sudo
     append: yes
     create_home: yes
-  tags: common
 
 - name: Create .ssh directory for {{ app_user }}
   file:
@@ -29,7 +26,6 @@
     owner: "{{ app_user }}"
     group: "{{ app_user }}"
     mode: "0700"
-  tags: common
 
 - name: Add authorized SSH key for {{ app_user }}
   copy:
@@ -38,14 +34,12 @@
     owner: "{{ app_user }}"
     group: "{{ app_user }}"
     mode: "0600"
-  tags: common
 
 - name: Allow passwordless sudo for {{ app_user }}
   copy:
     dest: "/etc/sudoers.d/{{ app_user }}"
     content: "{{ app_user }} ALL=(ALL) NOPASSWD:ALL\n"
     mode: "0440"
-  tags: common
 
 - name: Disable root SSH login
   lineinfile:
@@ -54,7 +48,6 @@
     line: "PermitRootLogin no"
     state: present
     backup: yes
-  tags: common
 
 - name: Disable SSH password authentication
   lineinfile:
@@ -63,10 +56,14 @@
     line: "PasswordAuthentication no"
     state: present
     backup: yes
-  tags: common
 
 - name: Restart SSH service
   service:
     name: ssh
     state: restarted
-  tags: common
+
+- name: Reboot the server and exit immediately
+  ansible.builtin.shell: reboot
+  become: yes
+  async: 1
+  poll: 0
