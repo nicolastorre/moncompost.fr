@@ -86,7 +86,7 @@
   file:
     path: "{{ nginx_server_root }}"
     owner: "{{ app_user }}"
-    group: "{{ app_user }}"
+    group: "www-data"
     recurse: yes
     state: directory
   become: yes
