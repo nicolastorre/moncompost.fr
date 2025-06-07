@@ -27,10 +27,6 @@
     state: present
     update_cache: true
 
-- name: Install Docker Module for Python
-  pip:
-    name: docker
-
 - name: Add {{ app_user }} to docker group
   user:
     name: "{{ app_user }}"
