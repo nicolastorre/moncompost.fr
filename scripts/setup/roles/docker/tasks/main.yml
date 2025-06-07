@@ -20,6 +20,21 @@
     dest: /etc/apt/keyrings/docker.asc
     mode: "0644"
 
+- name: Get architecture
+  command: dpkg --print-architecture
+  register: deb_architecture
+  changed_when: false
+
+- name: Get distribution
+  command: lsb_release -is
+  register: distribution
+  changed_when: false
+
+- name: Get distribution codename
+  command: lsb_release -cs
+  register: distribution_release
+  changed_when: false
+
 - name: Add Docker apt repository
   ansible.builtin.apt_repository:
     repo: "deb [arch={{ deb_architecture.stdout }} signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/{{ distribution | lower }} {{ distribution_release }} stable"
