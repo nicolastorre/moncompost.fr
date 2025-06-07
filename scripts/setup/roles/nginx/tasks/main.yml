@@ -6,7 +6,7 @@
 - name: Copy NGINX config
   template:
     src: myapp.conf.j2
-    dest: /etc/nginx/sites-available/myapp.conf
+    dest: /etc/nginx/sites-available/myapp_no_ssl.conf
 
 - name: Enable NGINX site
   file:
@@ -24,6 +24,11 @@
   command: certbot --nginx --non-interactive --agree-tos -m {{ ssl_email }} -d {{ domain }}
   args:
     creates: /etc/letsencrypt/live/{{ domain }}/fullchain.pem
+
+- name: Copy NGINX config
+  template:
+    src: myapp.conf.j2
+    dest: /etc/nginx/sites-available/myapp.conf
 
 - name: Reload nginx
   service:
