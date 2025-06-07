@@ -63,14 +63,12 @@
   command: docker compose -f docker-compose.prod.yml build
   args:
     chdir: "{{ app_dest_dir }}"
-  become: yes
   become_user: "{{ app_user }}"
 
 - name: Start Docker containers with docker-compose.prod.yml
   command: docker compose -f docker-compose.prod.yml up -d
   args:
     chdir: "{{ app_dest_dir }}"
-  become: yes
   become_user: "{{ app_user }}"
 
 - name: Build frontend using Docker and Yarn
@@ -82,5 +80,4 @@
     /bin/bash -c "yarn install --frozen-lockfile && yarn workspace frontend build"
   args:
     chdir: "{{ app_dest_dir }}"
-  become: yes
   become_user: "{{ app_user }}"
