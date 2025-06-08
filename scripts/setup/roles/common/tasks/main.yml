@@ -19,6 +19,17 @@
     append: yes
     create_home: yes
 
+- name: Create docker group if it doesn't exist
+  group:
+    name: docker
+    state: present
+
+- name: Add app_user to docker group
+  user:
+    name: "{{ app_user }}"
+    groups: docker
+    append: yes
+
 - name: Create .ssh directory for {{ app_user }}
   file:
     path: "/home/{{ app_user }}/.ssh"
