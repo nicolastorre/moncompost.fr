@@ -31,3 +31,9 @@
 - name: Install Docker packages
   shell: apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
   become: true
+
+- name: Add app_user to docker group
+  user:
+    name: "{{ app_user }}"
+    groups: docker
+    append: yes
