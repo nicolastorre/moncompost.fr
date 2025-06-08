@@ -100,6 +100,6 @@
 - name: Apply 0644 permissions to dist files
   file:
     path: "{{ item.path }}"
-    mode: "0644"
+    mode: "0755"
   loop: "{{ frontend_files.files }}"
   become: yes
